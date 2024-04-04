@@ -27,4 +27,13 @@ public class C07_GetDynamicRequest {
     public void userID3IsExist(){
         apiCalls.checkUserIDIsExist(3,200);
     }
+
+    // Verify the data of the user id 4 in the reqres users
+    @Test
+    public void userID4IsExist(){
+        apiCalls.checkUserExistWithIDReqresIn(4,
+                200, "eve.holt@reqres.in","Eve","Holt");
+    }
+
+
 }
