@@ -8,5 +8,11 @@ public class BaseUrl {
         String url = "https://reqres.in/api/users/"+id;
         return url;
     }
+    public String bookingUsersID(int id){
+        String url = "https://restful-booker.herokuapp.com/booking/"+id;
+        return url ;
+    }
+
+
 
 }
