@@ -1,12 +1,14 @@
 package day03;
 
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.ApiCalls;
 import utilities.BaseUrl;
 import utilities.TestData;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -35,6 +37,18 @@ public class C09_GetRequestDeSerialization {
         System.out.println("************************************");
         System.out.println("This Body is Hash Map Body Created in the TestData Class");
         System.out.println(expectedData);
+
+        // Convert data from json to Java ===> De-Serialization
+        // Create a Hash map
+        HashMap<String, Object> responseData = response.as(HashMap.class);// De-Serialization
+        System.out.println("****************************************");
+        System.out.println(responseData);
+        HashMap<String, Object> actualData = (HashMap<String, Object>) responseData.get("data");
+        System.out.println(actualData);
+        //Verify
+        Assert.assertEquals(actualData.get("data.email"),expectedData.get("email"));
+        Assert.assertEquals(actualData.get("data.first_name"),expectedData.get("first_name"));
+        Assert.assertEquals(actualData.get("data.last_name"),expectedData.get("last_name"));
 
     }
 

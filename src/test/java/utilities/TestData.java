@@ -30,4 +30,20 @@ public class TestData {
     }
 
 
+    public HashMap<String,Object> getBookingData(){
+        HashMap<String,Object> bookingDates = new HashMap<>();
+        bookingDates.put("checkin","2018-01-01");
+        bookingDates.put("checkout","2019-01-01");
+
+        HashMap<String, Object>expectedData = new HashMap<>();
+        expectedData.put("firstname", "Josh");
+        expectedData.put("lastname", "Allen");
+        expectedData.put("totalprice", 111.0);
+        expectedData.put("depositpaid", true);
+        expectedData.put("additionalneeds", "super bowls");
+        expectedData.put("bookingdates", bookingDates);
+
+        return expectedData;
+    }
+
 }
