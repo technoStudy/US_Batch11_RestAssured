@@ -2,6 +2,7 @@ package day03;
 
 import org.testng.annotations.Test;
 import utilities.ApiCalls;
+import utilities.TestData;
 
 public class C08_GetDynamicRequestJsonPath {
 
@@ -40,8 +41,13 @@ public class C08_GetDynamicRequestJsonPath {
         apiCalls.checkUserExistWithIDReqresInJsonPath(1,200,
                 "charles.morris@reqres.in","Charles","Morris");
     }
-
-
-    // we can also verify this information with data provider
+    // we can also verify this information with data provider (all in one)
     // Create a class with name TestData
+    @Test(dataProvider = "userDataProvider", dataProviderClass = TestData.class)
+    public void checkAllUsersInReqres(int id,int statusCode,String email,String firstname,
+    String lastName){
+        apiCalls.checkUserExistWithIDReqresInJsonPath(id,statusCode,email,firstname,lastName);
+    }
+
+
 }
