@@ -8,7 +8,7 @@ import utilities.BaseUrl;
 
 import static io.restassured.RestAssured.given;
 
-public class C06_GetRequest {
+public class C06_GetRequestJsonPath {
 
     // JSONPATH
     // Json Path is also provide us testing body like Matchers Class
