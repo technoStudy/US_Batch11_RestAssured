@@ -138,4 +138,43 @@ public class ApiCalls {
     }
 
 
+    public Response createBooking(int statusCode,String firstname,String lastname,int totalPrice, boolean depositPaid,
+                                  String additional,String checkin, String checkout){
+        JSONObject bookingDates = new JSONObject();
+        bookingDates.put("checkin",checkin);
+        bookingDates.put("checkout",checkout);
+
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("firstname",firstname );
+        expectedData.put("lastname", lastname);
+        expectedData.put("totalprice", totalPrice);
+        expectedData.put("depositpaid", depositPaid);
+        expectedData.put("additionalneeds", additional);
+        expectedData.put("bookingdates", bookingDates);
+        Response response = given()
+                .contentType("application/json; Charset=utf-8")
+                .auth()// Usually we need a password or token to create a data
+                .basic("admin","password123")
+                .body(expectedData.toString()) // if we are using JSONObject we should add .toString() method
+                .when()
+                .post(baseUrl.bookingCreate());
+        // Now we sent to post method for creating a data but we do not know it is created or not
+        // we have to verify data
+        response.then()
+                .assertThat()
+                .statusCode(statusCode);
+        response.prettyPrint();
+        // verify the created data
+        JsonPath actualData = response.jsonPath();
+        Assert.assertEquals(actualData.getString("booking.firstname"),expectedData.getString("firstname"));
+        Assert.assertEquals(actualData.getString("booking.lastname"),expectedData.getString("lastname"));
+        Assert.assertEquals(actualData.getInt("booking.totalprice"),expectedData.getInt("totalprice"));
+        Assert.assertEquals(actualData.getBoolean("booking.depositpaid"),expectedData.getBoolean("depositpaid"));
+        Assert.assertEquals(actualData.getString("booking.bookingdates.checkin"),expectedData.getJSONObject("bookingdates").getString("checkin"));
+        Assert.assertEquals(actualData.getString("booking.bookingdates.checkout"),expectedData.getJSONObject("bookingdates").getString("checkout"));
+
+        return response;
+    }
+
+
 }

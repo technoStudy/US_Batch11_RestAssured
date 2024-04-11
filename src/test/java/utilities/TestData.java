@@ -1,5 +1,6 @@
 package utilities;
 
+import org.json.JSONObject;
 import org.testng.annotations.DataProvider;
 
 import java.util.HashMap;
@@ -41,6 +42,23 @@ public class TestData {
         expectedData.put("totalprice", 111.0);
         expectedData.put("depositpaid", true);
         expectedData.put("additionalneeds", "super bowls");
+        expectedData.put("bookingdates", bookingDates);
+
+        return expectedData;
+    }
+
+
+    public JSONObject createBookingData(){
+        JSONObject bookingDates = new JSONObject();
+        bookingDates.put("checkin","2024-04-12");
+        bookingDates.put("checkout","2024-04-15");
+
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("firstname", "Asli");
+        expectedData.put("lastname", "Sezgin");
+        expectedData.put("totalprice", 540);
+        expectedData.put("depositpaid", true);
+        expectedData.put("additionalneeds", "breakfast");
         expectedData.put("bookingdates", bookingDates);
 
         return expectedData;

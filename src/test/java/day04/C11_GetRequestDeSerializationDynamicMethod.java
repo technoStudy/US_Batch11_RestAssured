@@ -14,7 +14,6 @@ public class C11_GetRequestDeSerializationDynamicMethod {
       ,true,"2018-01-01","2019-01-01","Dinner");
     }
 
-
     @Test
     public void bookingTestWithSerialization(){
         apiCalls.serializationMethodForHerokuapBooking(855,200,"John","Smith", 111
