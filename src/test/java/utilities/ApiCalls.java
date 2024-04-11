@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.Assert;
 
+import java.util.HashMap;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -53,6 +55,57 @@ public class ApiCalls {
         Assert.assertEquals(actualData.getString("data.first_name"),firstname);
         Assert.assertEquals(actualData.getString("data.last_name"),lastname);
         return response;
-
     }
+
+    public Response derSerializationMethodForHerokuapBooking(int id, int statuscode,String firstname,
+                                                             String lastname, double totalprice,boolean depositpaid,String checkin,
+                                                             String checkout,String additionalNeed){
+        // Let Create adynamic hasmap method
+        HashMap<String,Object> bookingDates = new HashMap<>();
+        bookingDates.put("checkin",checkin);
+        bookingDates.put("checkout",checkout);
+        HashMap<String, Object> expectedData = new HashMap<>();
+        expectedData.put("firstname",firstname);
+        expectedData.put("lastname",lastname);
+        expectedData.put("totalprice",totalprice);
+        expectedData.put("depositpaid",depositpaid);
+        expectedData.put("additionalneeds",additionalNeed);
+        expectedData.put("bookingDates",checkin);
+        expectedData.put("bookingDates",checkout);
+
+        //Create Response class
+        Response response = given().when().get(baseUrl.bookingUsersID(id));
+
+        response.then().assertThat()
+                .statusCode(statuscode)
+                .contentType("application/json; charset=utf-8");
+
+        //De-Serialization convert data from java to
+        HashMap<String,Object> actualData = response.as(HashMap.class);
+        Assert.assertEquals(actualData.get("firstname"),expectedData.get("firstname"));
+        Assert.assertEquals(actualData.get("lastname"),expectedData.get("lastname"));
+        Assert.assertEquals(actualData.get("totalprice"),expectedData.get("totalprice"));
+        Assert.assertEquals(actualData.get("depositpaid"),expectedData.get("depositpaid"));
+        Assert.assertEquals(actualData.get("checkin"),expectedData.get("checkin"));
+        Assert.assertEquals(actualData.get("checkout"),expectedData.get("checkout"));
+        Assert.assertEquals(actualData.get("additionalneeds"),expectedData.get("additionalneeds"));
+
+    return response;
+    }
+
+
+/*
+{
+    "firstname": "Josh",
+    "lastname": "Allen",
+    "totalprice": 111,
+    "depositpaid": true,
+    "bookingdates": {
+        "checkin": "2018-01-01",
+        "checkout": "2019-01-01"
+    },
+    "additionalneeds": "super bowls"
+}
+ */
+
 }
