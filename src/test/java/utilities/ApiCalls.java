@@ -140,6 +140,7 @@ public class ApiCalls {
 
     public Response createBooking(int statusCode,String firstname,String lastname,int totalPrice, boolean depositPaid,
                                   String additional,String checkin, String checkout){
+
         JSONObject bookingDates = new JSONObject();
         bookingDates.put("checkin",checkin);
         bookingDates.put("checkout",checkout);

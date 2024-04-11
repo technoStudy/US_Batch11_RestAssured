@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utilities.ApiCalls;
 import utilities.BaseUrl;
 import utilities.TestData;
 
@@ -15,6 +16,8 @@ public class C12_PostRequest {
 
     TestData testData = new TestData();
     BaseUrl baseUrl = new BaseUrl();
+
+    ApiCalls apiCalls = new ApiCalls();
     @Test
     public void createBookingTest(){
         // For the POST method (create method) we need data
@@ -46,6 +49,24 @@ public class C12_PostRequest {
         Assert.assertEquals(actualData.getString("booking.bookingdates.checkin"),expectedData.getJSONObject("bookingdates").getString("checkin"));
         Assert.assertEquals(actualData.getString("booking.bookingdates.checkout"),expectedData.getJSONObject("bookingdates").getString("checkout"));
 
+    }
+
+    @Test
+    public void createBookingData(){
+       apiCalls.createBooking(200,"Erva Naz","Sezgin",500,false,
+               "lunch","2024-04-20","2024-04-25") ;
+    }
+
+    @Test
+    public void createBookingWithoutName(){
+        apiCalls.createBooking(404,"","Sezgin",500,false,
+                "lunch","2024-04-20","2024-04-25") ;
+    }
+
+    @Test
+    public void createBookingWithoutLastName(){
+        apiCalls.createBooking(404,"Erva Naz","",500,false,
+                "lunch","2024-04-20","2024-04-25") ;
     }
 /*
 {
