@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor // Generate an all-arguments constructor
 
 public class BookingDetails {
+    private int id ;
     private String firstname ;
     private String lastname ;
     private int totalprice ;
