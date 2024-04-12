@@ -20,4 +20,9 @@ public class BaseUrl {
     }
 
 
+    public String deleteEmployee(int id){
+        String url = "https://dummy.restapiexample.com/api/v1/delete/"+id;
+        return url;
+    }
+
 }

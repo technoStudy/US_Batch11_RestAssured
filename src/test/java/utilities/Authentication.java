@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 
 public class Authentication {
 
-    public String generateBookingToken() {
+    public static String generateBookingToken() {
         String url = "https://restful-booker.herokuapp.com/auth";
         String username = "admin";
         String password = "password123";

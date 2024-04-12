@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static utilities.Authentication.generateBookingToken;
 
 public class ApiCalls {
     // we will create dynamic methods from the Response class
@@ -178,4 +179,55 @@ public class ApiCalls {
     }
 
 
+
+    public Response createBookingWithToken(int statusCode,String firstname,String lastname,int totalPrice, boolean depositPaid,
+                                  String additional,String checkin, String checkout){
+
+        JSONObject bookingDates = new JSONObject();
+        bookingDates.put("checkin",checkin);
+        bookingDates.put("checkout",checkout);
+
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("firstname",firstname );
+        expectedData.put("lastname", lastname);
+        expectedData.put("totalprice", totalPrice);
+        expectedData.put("depositpaid", depositPaid);
+        expectedData.put("additionalneeds", additional);
+        expectedData.put("bookingdates", bookingDates);
+        Response response = given()
+                .contentType("application/json; Charset=utf-8")
+                .header("Authorization","Bearer" + generateBookingToken())
+                .body(expectedData.toString()) // if we are using JSONObject we should add .toString() method
+                .when()
+                .post(baseUrl.bookingCreate());
+        // Now we sent to post method for creating a data but we do not know it is created or not
+        // we have to verify data
+        response.then()
+                .assertThat()
+                .statusCode(statusCode);
+        response.prettyPrint();
+        // verify the created data
+        JsonPath actualData = response.jsonPath();
+        Assert.assertEquals(actualData.getString("booking.firstname"),expectedData.getString("firstname"));
+        Assert.assertEquals(actualData.getString("booking.lastname"),expectedData.getString("lastname"));
+        Assert.assertEquals(actualData.getInt("booking.totalprice"),expectedData.getInt("totalprice"));
+        Assert.assertEquals(actualData.getBoolean("booking.depositpaid"),expectedData.getBoolean("depositpaid"));
+        Assert.assertEquals(actualData.getString("booking.bookingdates.checkin"),expectedData.getJSONObject("bookingdates").getString("checkin"));
+        Assert.assertEquals(actualData.getString("booking.bookingdates.checkout"),expectedData.getJSONObject("bookingdates").getString("checkout"));
+        return response;
+    }
+
+
+    public Response deleteEmployee(int id){
+        Response response = given()
+                .when().delete(baseUrl.deleteEmployee(id));
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .body("status", equalTo("success"),
+                        "data",equalTo(Integer.toString(id)),
+                        "message",equalTo("Successfully! Record has been deleted"));
+
+        return response;
+    }
 }
