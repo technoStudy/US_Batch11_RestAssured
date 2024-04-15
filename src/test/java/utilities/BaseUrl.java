@@ -25,4 +25,8 @@ public class BaseUrl {
         return url;
     }
 
+    public String createReqresUser(){
+        String url = "https://reqres.in/api/users";
+        return url;
+    }
 }

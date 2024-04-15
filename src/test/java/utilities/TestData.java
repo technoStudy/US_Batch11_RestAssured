@@ -64,4 +64,19 @@ public class TestData {
         return expectedData;
     }
 
+    @DataProvider(name = "createUserReqres")
+    public Object[][] createUserReqres() {
+        return new Object[][]{
+                { 404, "Meh","Mathematics"},
+                { 404, "MehmetAliSezgin","Mathematics"},
+                { 404, "","Mathematics"},
+                { 404, "Meh","Mat"},
+                { 404, "MehmetAliSezgin","MathematicsTester"},
+                { 404, "Mehmet",""},
+                { 404, "",""}
+        };
+    }
+
+
+
 }

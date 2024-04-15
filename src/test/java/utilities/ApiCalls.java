@@ -1,10 +1,12 @@
 package utilities;
 
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.testng.Assert;
+import pojo.reqresIn.ReqresInPostDetails;
 
 import java.util.HashMap;
 
@@ -228,6 +230,27 @@ public class ApiCalls {
                         "data",equalTo(Integer.toString(id)),
                         "message",equalTo("Successfully! Record has been deleted"));
 
+        return response;
+    }
+
+    public Response createUserReqresIn(int statuscode, String name, String job){
+        // we should create an object from the related pojo class
+        ReqresInPostDetails expectedData = new ReqresInPostDetails();
+        // we should set data to create
+        expectedData.setName(name);
+        expectedData.setJob(job);
+        // create Response
+        Response response = given().
+                contentType(ContentType.JSON).
+                body(expectedData).
+                when().
+                post(baseUrl.createReqresUser());
+        response.then().assertThat().statusCode(statuscode);
+        response.prettyPrint();
+        // When we create a data then we should verify it
+        ReqresInPostDetails actualData = response.as(ReqresInPostDetails.class);
+        Assert.assertEquals(actualData.getName(),expectedData.getName());
+        Assert.assertEquals(actualData.getJob(),expectedData.getJob());
         return response;
     }
 }
