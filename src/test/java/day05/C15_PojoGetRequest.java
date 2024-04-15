@@ -4,8 +4,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pojo.BookingDates;
-import pojo.BookingDetails;
+import pojo.booking.BookingDates;
+import pojo.booking.BookingDetails;
 import utilities.BaseUrl;
 
 import static io.restassured.RestAssured.given;
@@ -30,7 +30,6 @@ public class C15_PojoGetRequest {
         BookingDates dates = new BookingDates();
         dates.setCheckin("2018-01-01");
         dates.setCheckout("2019-01-01");
-
 
         BookingDetails expectedData = new BookingDetails();
         // We should set data to verify

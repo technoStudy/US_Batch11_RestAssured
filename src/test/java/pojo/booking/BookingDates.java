@@ -1,4 +1,4 @@
-package pojo;
+package pojo.booking;
 
 public class BookingDates {
 

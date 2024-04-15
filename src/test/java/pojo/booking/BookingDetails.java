@@ -1,9 +1,10 @@
-package pojo;
+package pojo.booking;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pojo.booking.BookingDates;
 
 @Data // Generates getter, setter, toString()
 @NoArgsConstructor // Generate a no-arguments constructor
@@ -18,6 +19,7 @@ public class BookingDetails {
     private String additionalneeds ;
     // for the inner json it is better to create different pojo class
     private BookingDates bookingDates;
+
 
 
 
