@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import pojo.reqresIn.ReqresInPostDetails;
 import utilities.ApiCalls;
 import utilities.BaseUrl;
+import utilities.TestData;
 
 import static io.restassured.RestAssured.given;
 
@@ -81,4 +82,16 @@ public class C16_PostRequestWithPojo {
     public void jobAndNameMissing(){
         apiCalls.createUserReqresIn(404,"","");
     }
+
+
+    @Test(dataProvider = "createUserReqres",dataProviderClass = TestData.class)
+    public void negativeUserTestReqresIn(int statuscode,String name,String job){
+        apiCalls.createUserReqresIn(statuscode,name,job);
+    }
+
+
+
+
+
+
 }

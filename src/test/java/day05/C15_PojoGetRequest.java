@@ -50,4 +50,33 @@ public class C15_PojoGetRequest {
         Assert.assertEquals(actualData.getString("additionalneeds"),expectedData.getAdditionalneeds());
     }
 
+
+    @Test
+    public void getBookingTest02() {
+        // We created pojo class with name BookingDetails
+        // Create an object from that class
+        BookingDates dates = new BookingDates();
+        dates.setCheckin("2018-01-01");
+        dates.setCheckout("2019-01-01");
+
+        BookingDetails expectedData = new BookingDetails();
+        // We should set data to verify
+        expectedData.setId(427);
+        expectedData.setFirstname("Bob");
+        expectedData.setLastname("Smith");
+        expectedData.setTotalprice(111);
+        expectedData.setAdditionalneeds("Breakfast");
+        expectedData.setBookingDates(dates);
+
+        Response response = given().when().get(baseUrl.bookingUsersID(427));
+        response.prettyPrint();
+        // verify with jsonpath
+        BookingDetails actualData = response.as(BookingDetails.class);
+        Assert.assertEquals(actualData.getFirstname(),expectedData.getFirstname());
+        Assert.assertEquals(actualData.getLastname(),expectedData.getLastname());
+        Assert.assertEquals(actualData.getTotalprice(),expectedData.getTotalprice());
+        Assert.assertEquals(actualData.getAdditionalneeds(),expectedData.getAdditionalneeds());
+    }
+
+//NOTE: No need to use JSONObject, JsonPath, Hashmap for GET,POST,DELETE etc. When we create POJO Classes
 }

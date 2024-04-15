@@ -29,4 +29,10 @@ public class BaseUrl {
         String url = "https://reqres.in/api/users";
         return url;
     }
+
+
+    public String getEmployee(int id){
+        String url = "https://dummy.restapiexample.com/api/v1/employee/"+id;
+        return url;
+    }
 }
