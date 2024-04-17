@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="com.API_Testing_batch11" />
+        <module name="batch11" />
       </profile>
     </annotationProcessing>
   </component>
